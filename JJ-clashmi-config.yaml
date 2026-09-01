@@ -20,7 +20,7 @@ Anchor_HK: &Anchor_HK '^(?i)(?=.*(香港|🇭🇰|\bHK\b|Hong(?:\s?Kong)?|HKG)).
 Anchor_JP: &Anchor_JP '^(?i)(?=.*(日本|🇯🇵|\bJP\b|Japan|NRT|HND|KIX|CTS|FUK)).*$'
 Anchor_US: &Anchor_US '^(?i)(?=.*(美国|美國|🇺🇸|\bUS\b|\bUSA\b|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD)).*$'
 Anchor_SG: &Anchor_SG '^(?i)(?=.*(新加坡|🇸🇬|\bSG\b)).*$'
-Anchor_OT: &Anchor_OT '^(?!.*(流量)).*$'
+Anchor_OT: &Anchor_OT '^(?i)(?!.*(?:流量|订阅|期|expire date|traffic reset)).*$'
 
 # ███████████████████████████ 核心配置 ███████████████████████████
 # ══ 基础配置 ══
