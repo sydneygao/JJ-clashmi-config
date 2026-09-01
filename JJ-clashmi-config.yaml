@@ -11,7 +11,7 @@ Anchor_OB: &Anchor_OB {type: select, proxies: [默认代理, 香港自动, 日�
 
 # ══ 策略锚点 ══
 Anchor_HS: &Anchor_HS {type: select, empty-fallback: REJECT, include-all: true}
-Anchor_UT: &Anchor_UT {type: url-test, empty-fallback: REJECT, interval: 300, lazy: false, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', tolerance: 50, include-all: true}
+Anchor_UT: &Anchor_UT {type: url-test, empty-fallback: REJECT, interval: 300, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', tolerance: 50, include-all: true}
 
 # ══ 规则锚点 ══
 Anchor_DN: &Anchor_DN {type: http, interval: 86400, behavior: domain, format: mrs}
