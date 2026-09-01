@@ -38,25 +38,25 @@ Anchor_OT: &Anchor_OT '^(?!.*(流量)).*$'
 
 # ███████████████████████████ 核心配置 ███████████████████████████
 # ══ 基础配置 ══
-mode: rule                                                                    # 工作模式  rule（规则模式）/ global（全局模式）/ direct（直连模式）
-ipv6: false                                                                     # 网络协议  是否启用 IPv6 支持
-mixed-port: 7893                                                          # 监听端口  HTTP + SOCKS5 混合代理端口
-allow-lan: true                                                              # 局域连接  是否允许局域网设备连接
-bind-address: "*"                                                          # 监听接口  监听的网络接口（* 表示所有接口）
-log-level: warning                                                        # 日志级别  silent（静默）/ error（错误）/ warning（警告）/ info（信息）/ debug（调试）
-unified-delay: true                                                       # 统一延迟  减少节点延迟抖动
-tcp-concurrent: true                                                    # 并发连接  提升多任务性能
+mode: rule                                                     # 工作模式  rule（规则模式）/ global（全局模式）/ direct（直连模式）
+ipv6: false                                                    # 网络协议  是否启用 IPv6 支持
+mixed-port: 7893                                               # 监听端口  HTTP + SOCKS5 混合代理端口
+allow-lan: true                                                # 局域连接  是否允许局域网设备连接
+bind-address: "*"                                              # 监听接口  监听的网络接口（* 表示所有接口）
+log-level: warning                                             # 日志级别  silent（静默）/ error（错误）/ warning（警告）/ info（信息）/ debug（调试）
+unified-delay: true                                            # 统一延迟  减少节点延迟抖动
+tcp-concurrent: true                                           # 并发连接  提升多任务性能
 profile: { store-selected: true, store-fake-ip: true }         # 保存选择  记住选择的节点和策略组、Fake-IP 映射
 # ══ 管理面板 ══
 external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-external-controller: 127.0.0.1:9090                               # 面板地址 如需局域网访问改为 0.0.0.0:9090
-external-ui-name: zashboard                                      # 面板名称
-external-ui: ui                                                             # 面板目录
-secret: ""                                                                    # 面板密码
+external-controller: 127.0.0.1:9090                            # 面板地址 如需局域网访问改为 0.0.0.0:9090
+external-ui-name: zashboard                                    # 面板名称
+external-ui: ui                                                # 面板目录
+secret: ""                                                     # 面板密码
 # ══ TUN配置 ══
 tun:
-  enable: true                                                          # 网卡模式  是否启用 TUN 虚拟网卡模式  
-  stack: mixed                                                          # 协议类型  网络栈：system（系统栈）/ gvisor（内置用户态栈）/ mixed（混合）
+  enable: true                                                  # 网卡模式  是否启用 TUN 虚拟网卡模式  
+  stack: mixed                                                  # 协议类型  网络栈：system（系统栈）/ gvisor（内置用户态栈）/ mixed（混合）
   dns-hijack:
     - any:53
     - tcp://any:53
