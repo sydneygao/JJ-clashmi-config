@@ -5,14 +5,25 @@
 # 使用方式：机场完整订阅 + 本配置作为核心覆写
 # 节点来源：继承机场订阅中的 proxies / proxy-providers
 
+# ███████████████████████████ 机场区域 ███████████████████████████
+proxy-providers:
+  Airport1:
+    url: "这里填写机场订阅地址"
+    type: http
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+
 # ███████████████████████████ 锚点区域 ███████████████████████████
 
 # ══ 出站锚点 ══
 Anchor_OB: &Anchor_OB {type: select, proxies: [默认代理, 香港自动, 日本自动, 新加坡自动, 美国自动, 香港手动, 日本手动, 新加坡手动, 美国手动, 手动选择, DIRECT, REJECT]}
 
 # ══ 策略锚点 ══
-Anchor_HS: &Anchor_HS {type: select, include-all: true, exclude-type: direct}
-Anchor_UT: &Anchor_UT {type: url-test, url: 'http://www.gstatic.com/generate_204', interval: 600, lazy: true, tolerance: 50, timeout: 2000, max-failed-times: 3, hidden: true, include-all: true, exclude-type: direct}
+Anchor_HS: &Anchor_HS {type: select, use: [Airport1]}
+Anchor_UT: &Anchor_UT {type: url-test, url: 'https://www.gstatic.com/generate_204', interval: 600, lazy: true, tolerance: 50, timeout: 5000, max-failed-times: 3, hidden: true, use: [Airport1]}
 
 # ══ 规则锚点 ══
 Anchor_DN: &Anchor_DN {type: http, interval: 86400, behavior: domain, format: mrs}
