@@ -1,18 +1,7 @@
 # 名称： JJ-clashmi-config.yaml
-# 版本： 
+# 版本： 在线更新版
 # 日期： 2026.9.1
-# 说明： 
-
-# ███████████████████████████ 机场区域 ███████████████████████████
-proxy-providers:
-  Airport1:
-    url: "https://" #填写完整订阅地址
-    type: http
-    interval: 86400  #订阅更新频率（秒）
-    health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 300
+# 说明： 纯配置文件，不含机场订阅信息
 
 # ███████████████████████████ 锚点区域 ███████████████████████████
 # ══ 出站锚点 ══
