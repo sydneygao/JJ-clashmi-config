@@ -4,6 +4,8 @@
 # 说明： 纯配置文件，不含机场订阅信息
 
 # ███████████████████████████ 锚点区域 ███████████████████████████
+# ══ 订阅锚点 ══
+Anchor_PR: &Anchor_PR {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'http://www.gstatic.com/generate_204', interval: 300}, filter: "^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$"}
 # ══ 出站锚点 ══
 Anchor_OB: &Anchor_OB {type: select, proxies: [默认代理, 香港自动, 日本自动, 新加坡自动, 美国自动, 香港手动, 日本手动, 新加坡手动, 美国手动, 手动选择, DIRECT, REJECT]}
 # ══ 策略锚点 ══
