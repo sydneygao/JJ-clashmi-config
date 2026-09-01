@@ -1,20 +1,8 @@
 # 名称： JJ-clashmi-config.yaml
-# 版本： 2.0
+# 版本： ClashMi Overwrite
 # 日期： 2026.9.1
-# 说明： ClashMi 自定义核心覆写配置
-# 使用方式：机场完整订阅 + 本配置作为核心覆写
-# 节点来源：继承机场订阅中的 proxies / proxy-providers
-
-# ███████████████████████████ 机场区域 ███████████████████████████
-proxy-providers:
-  Airport1:
-    url: "这里填写机场订阅地址"
-    type: http
-    interval: 86400
-    health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 300
+# 说明： 机场完整订阅 + ClashMi 自定义覆写专用
+# 注意：本文件不填写机场订阅地址，不定义 proxies / proxy-providers
 
 # ███████████████████████████ 锚点区域 ███████████████████████████
 
@@ -22,33 +10,33 @@ proxy-providers:
 Anchor_OB: &Anchor_OB {type: select, proxies: [默认代理, 香港自动, 日本自动, 新加坡自动, 美国自动, 香港手动, 日本手动, 新加坡手动, 美国手动, 手动选择, DIRECT, REJECT]}
 
 # ══ 策略锚点 ══
-Anchor_HS: &Anchor_HS {type: select, use: [Airport1]}
-Anchor_UT: &Anchor_UT {type: url-test, url: 'https://www.gstatic.com/generate_204', interval: 600, lazy: true, tolerance: 50, timeout: 5000, max-failed-times: 3, hidden: true, use: [Airport1]}
+Anchor_HS: &Anchor_HS {type: select, empty-fallback: REJECT, include-all: true}
+Anchor_UT: &Anchor_UT {type: url-test, empty-fallback: REJECT, interval: 300, lazy: true, timeout: 3000, max-failed-times: 2, hidden: true, url: 'https://www.gstatic.com/generate_204', tolerance: 50, include-all: true}
 
 # ══ 规则锚点 ══
 Anchor_DN: &Anchor_DN {type: http, interval: 86400, behavior: domain, format: mrs}
-Anchor_DN_PROXY: &Anchor_DN_PROXY {type: http, interval: 86400, behavior: domain, format: mrs, proxy: 默认代理}
-Anchor_IP: &Anchor_IP {type: http, interval: 86400, behavior: ipcidr, format: mrs, proxy: 默认代理}
+Anchor_IP: &Anchor_IP {type: http, interval: 86400, behavior: ipcidr, format: mrs}
 
 # ══ 区域锚点 ══
-Anchor_HK: &Anchor_HK '^(?i)(?=.*(香港|🇭🇰|\bHK\b|Hong(?:\s?Kong)?|HKG)).*$'
-Anchor_JP: &Anchor_JP '^(?i)(?=.*(日本|🇯🇵|\bJP\b|Japan|NRT|HND|KIX|CTS|FUK)).*$'
-Anchor_US: &Anchor_US '^(?i)(?=.*(美国|美國|United\\s*States|🇺🇸|\bUS\b|\bUSA\b|SJC|JFK|LAX|ORD|ATL|DFW|SFO|MIA|SEA|IAD)).*$'
-Anchor_SG: &Anchor_SG '^(?i)(?=.*(新加坡|🇸🇬|\bSG\b|Singapore|SGP)).*$'
-Anchor_OT: &Anchor_OT '^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置|期|expire date|traffic reset)).*$'
+Anchor_HK: &Anchor_HK '(?i)^(?=.*(香港|(?<![a-zA-Z])(hk|hkg)(?![a-zA-Z])|hongkong|hong kong|🇭🇰)).*$'
+Anchor_JP: &Anchor_JP '(?i)^(?=.*(日本|(?<![a-zA-Z])(jp|nrt|hnd|kix|cts|fuk)(?![a-zA-Z])|japan|tokyo|🇯🇵)).*$'
+Anchor_SG: &Anchor_SG '(?i)^(?=.*(新加坡|(?<![a-zA-Z])(sg|sin|xsp)(?![a-zA-Z])|singapore|🇸🇬)).*$'
+Anchor_US: &Anchor_US '(?i)^(?=.*(美国|美國|(?<![a-zA-Z])(us|usa|lax|sfo|jfk|sjc|sea|iad|ord|atl|dfw|mia)(?![a-zA-Z])|america|united states|🇺🇸)).*$'
+Anchor_OT: &Anchor_OT '^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$'
 
 # ███████████████████████████ 核心配置 ███████████████████████████
 
 # ══ 基础配置 ══
 mode: rule                                                                    # 工作模式
-ipv6: false                                                                   # 全局关闭 IPv6
-mixed-port: 7893                                                              # HTTP + SOCKS5 混合代理端口
-allow-lan: true                                                               # 允许局域网连接
+ipv6: false                                                                   # IPv6
+mixed-port: 7893                                                              # HTTP + SOCKS5 混合端口
+allow-lan: true                                                               # 允许局域网访问
 bind-address: "*"                                                             # 监听全部接口
 log-level: warning                                                            # 日志级别
 unified-delay: true                                                           # 统一延迟
-tcp-concurrent: true                                                          # TCP 并发
-profile: {store-selected: true, store-fake-ip: true}                          # 保存策略选择与 Fake-IP 映射
+tcp-concurrent: true                                                          # TCP并发
+global-ua: clash.meta                                                         # Clash/Mihomo UA
+profile: {store-selected: true, store-fake-ip: true}                          # 保存策略及Fake-IP
 
 # ══ 管理面板 ══
 external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
@@ -57,18 +45,16 @@ external-ui-name: zashboard
 external-ui: ui
 secret: ""
 
-
 # ══ TUN配置 ══
 tun:
   enable: true
   stack: mixed
-  dns-hijack: [any:53, tcp://any:53]
+#  dns-hijack: [udp://any:53, tcp://any:53]
   auto-detect-interface: true
   auto-route: true
   auto-redirect: true
   strict-route: false
-  endpoint-independent-nat: false
-
+  endpoint-independent-nat: true
 
 # ══ 嗅探功能 ══
 sniffer:
@@ -76,6 +62,7 @@ sniffer:
   override-destination: true
   parse-pure-ip: true
   force-dns-mapping: true
+
   sniff:
     QUIC: {ports: [443]}
     TLS: {ports: [443, 8443]}
@@ -95,7 +82,6 @@ sniffer:
     - "+.oray.com"
     - "+.sunlogin.net"
     - "+.push.apple.com"
-
 
 # ══ DNS配置 ══
 dns:
@@ -165,78 +151,75 @@ proxy-groups:
 
 rules:
 
-  # 1. 私有网络
+  # ══ 私有网络 ══
   - RULE-SET,private_domain,DIRECT
   - GEOIP,private,DIRECT,no-resolve
 
-  # 2. 个性化强制匹配
-  # 需要强制覆盖 cn_domain 的规则必须放在 cn_domain 前面
-  - DOMAIN-SUFFIX,clashmi.app,默认代理                             # ClashMi
-  - DOMAIN-SUFFIX,overcast.fm,默认代理                             # Overcast
-  - DOMAIN-SUFFIX,overcast-cdn.com,默认代理                        # Overcast
-  - DOMAIN-SUFFIX,jpush.cn,默认代理                                # 极光推送
+  # ══ 个性化强制匹配 ══
+  - DOMAIN-SUFFIX,clashmi.app,默认代理
+  - DOMAIN-SUFFIX,overcast.fm,默认代理
+  - DOMAIN-SUFFIX,overcast-cdn.com,默认代理
+  - DOMAIN-SUFFIX,jpush.cn,默认代理
 
-  # 个性化直连
+  # ══ 个性化直连 ══
   - DOMAIN-SUFFIX,unpkg.com,DIRECT
-  - DOMAIN-SUFFIX,jsdelivr.net,DIRECT                              # CDN
-  - DOMAIN-SUFFIX,xhscdn.com,DIRECT                                # 小红书 CDN
+  - DOMAIN-SUFFIX,jsdelivr.net,DIRECT
+  - DOMAIN-SUFFIX,xhscdn.com,DIRECT
 
-  # 3. 中国大陆域名
-  - RULE-SET,cn_domain,DIRECT
+  # ══ AI ══
+  - RULE-SET,ai_domain,Ai
+  - DOMAIN-SUFFIX,searchgpt.com,Ai
+  - IP-ASN,399358,Ai,no-resolve
 
-  # 4. AI
-  - RULE-SET,ai_domain,Ai                                          # AI 合集
-  - DOMAIN-SUFFIX,searchgpt.com,Ai                                 # ChatGPT
-  - IP-ASN,399358,Ai,no-resolve                                    # Claude
+  # ══ Apple / Google / 媒体 ══
+  - RULE-SET,apple_domain,Apple
+  - RULE-SET,youtube_domain,Google
+  - RULE-SET,google_domain,Google
+  - RULE-SET,spotify_domain,Spotify
 
-  # 5. 特定海外服务域名分流
-  - RULE-SET,apple_domain,Apple                                    # Apple
-  - RULE-SET,youtube_domain,Google                                 # YouTube
-  - RULE-SET,google_domain,Google                                  # Google
-  - RULE-SET,spotify_domain,Spotify                                # Spotify
+  # ══ 社交 ══
+  - RULE-SET,whatsapp_domain,Social
+  - RULE-SET,instagram_domain,Social
+  - RULE-SET,facebook_domain,Social
+  - RULE-SET,snapchat_domain,Social
+  - RULE-SET,telegram_domain,Social
+  - RULE-SET,twitter_domain,Social
+  - RULE-SET,discord_domain,Social
 
-  # Social
-  - RULE-SET,whatsapp_domain,Social                                # WhatsApp
-  - RULE-SET,instagram_domain,Social                               # Instagram
-  - RULE-SET,facebook_domain,Social                                # Facebook
-  - RULE-SET,snapchat_domain,Social                                # Snapchat
-  - RULE-SET,telegram_domain,Social                                # Telegram
-  - RULE-SET,twitter_domain,Social                                 # Twitter/X
-  - RULE-SET,discord_domain,Social                                 # Discord
+  # ══ Netflix ══
+  - RULE-SET,netflix_domain,Netflix
 
-  # Netflix
-  - RULE-SET,netflix_domain,Netflix                                # Netflix
+  # ══ PayPal ══
+  - RULE-SET,paypal_domain,PayPal
 
-  # PayPal
-  - RULE-SET,paypal_domain,PayPal                                  # PayPal
+  # ══ 游戏 ══
+  - RULE-SET,games_domain,Games
+  - DOMAIN-SUFFIX,2ksports.com,Games
+  - DOMAIN-SUFFIX,marketingcloudapis.com,Games
 
-  # Games
-  - RULE-SET,games_domain,Games                                    # 游戏合集
-  - DOMAIN-SUFFIX,2ksports.com,Games                               # 2K Games
-  - DOMAIN-SUFFIX,marketingcloudapis.com,Games                     # Nintendo App
+  # ══ GitHub / Microsoft ══
+  - RULE-SET,github_domain,默认代理
+  - RULE-SET,microsoft_domain,Microsoft
 
-  # GitHub / Microsoft
-  - RULE-SET,github_domain,默认代理                                 # GitHub
-  - RULE-SET,microsoft_domain,Microsoft                            # Microsoft
-
-  # 6. 儿童保护
+  # ══ 儿童保护 ══
   - DOMAIN-SUFFIX,91porn.com,Shield
   - RULE-SET,porn_domain,Shield
 
-  # 7. IP 分流
-  - RULE-SET,google_ip,Google,no-resolve                           # Google IP
-  - RULE-SET,facebook_ip,Social,no-resolve                         # Facebook IP
-  - RULE-SET,telegram_ip,Social,no-resolve                         # Telegram IP
-  - RULE-SET,twitter_ip,Social,no-resolve                          # Twitter/X IP
-  - RULE-SET,netflix_ip,Netflix,no-resolve                         # Netflix IP
+  # ══ IP规则 ══
+  - RULE-SET,google_ip,Google,no-resolve
+  - RULE-SET,facebook_ip,Social,no-resolve
+  - RULE-SET,telegram_ip,Social,no-resolve
+  - RULE-SET,twitter_ip,Social,no-resolve
+  - RULE-SET,netflix_ip,Netflix,no-resolve
 
-  # 中国大陆 IP
+  # ══ 国内直连 ══
+  - RULE-SET,cn_domain,DIRECT
   - RULE-SET,cn_ip,DIRECT,no-resolve
 
-  # 8. 海外域名兜底
+  # ══ 海外域名兜底 ══
   - RULE-SET,geolocation-!cn,默认代理
 
-  # 9. 全局兜底
+  # ══ 全局兜底 ══
   - MATCH,漏网之鱼
 
 
@@ -249,37 +232,37 @@ rule-providers:
   cn_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
 
   # ══ AI ══
-  ai_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"}
+  ai_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"}
 
   # ══ 媒体 ══
-  youtube_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
-  spotify_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"}
-  netflix_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  youtube_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  spotify_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs"}
+  netflix_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
 
   # ══ 常用 ══
-  apple_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
-  github_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
-  google_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
-  microsoft_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
-  paypal_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  apple_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple.mrs"}
+  github_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  google_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  microsoft_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  paypal_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
 
   # ══ 社交 ══
-  whatsapp_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/whatsapp.mrs"}
-  facebook_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
-  instagram_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs"}
-  snapchat_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/snap.mrs"}
-  telegram_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
-  twitter_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"}
-  discord_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/discord.mrs"}
+  whatsapp_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/whatsapp.mrs"}
+  facebook_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/facebook.mrs"}
+  instagram_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/instagram.mrs"}
+  snapchat_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/snap.mrs"}
+  telegram_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  twitter_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.mrs"}
+  discord_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/discord.mrs"}
 
   # ══ 游戏 ══
-  games_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games-!cn.mrs"}
+  games_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games-!cn.mrs"}
 
   # ══ 儿童保护 ══
-  porn_domain: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.mrs"}
+  porn_domain: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.mrs"}
 
   # ══ 海外域名 ══
-  geolocation-!cn: {<<: *Anchor_DN_PROXY, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  geolocation-!cn: {<<: *Anchor_DN, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
 
   # ══ IP规则 ══
   google_ip: {<<: *Anchor_IP, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
