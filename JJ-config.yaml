@@ -56,7 +56,7 @@ secret: ""                                                     # 面板密码
 tun:
   enable: true                                                  # 网卡模式  是否启用 TUN 虚拟网卡模式  
   stack: mixed                                                  # 协议类型  网络栈：system（系统栈）/ gvisor（内置用户态栈）/ mixed（混合）
-#  dns-hijack:
+  dns-hijack:
     - any:53
     - tcp://any:53
   auto-detect-interface: true                                      # 自动出口  自动识别默认出口网络接口 （仅内核模式有效）
