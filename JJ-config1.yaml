@@ -111,16 +111,16 @@ proxy-groups:
   - {name: 漏网之鱼,   <<: *Anchor_OB, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Filter/Proxy.png}
 # ══区域组 ══
   # 香港组
-  #- {name: 香港手动,   <<: *Anchor_HS, filter: *Anchor_HK, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/HK02.png}
+  - {name: 香港手动,   <<: *Anchor_HS, filter: *Anchor_HK, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/HK02.png}
   - {name: 香港自动,   <<: *Anchor_UT, filter: *Anchor_HK, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/HK02.png}
   # 美国组
-  #- {name: 美国手动,   <<: *Anchor_HS, filter: *Anchor_US, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/US.png}
+  - {name: 美国手动,   <<: *Anchor_HS, filter: *Anchor_US, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/US.png}
   - {name: 美国自动,   <<: *Anchor_UT, filter: *Anchor_US, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/US.png}
   # 日本组
-  #- {name: 日本手动,   <<: *Anchor_HS, filter: *Anchor_JP, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/JP.png}
+  - {name: 日本手动,   <<: *Anchor_HS, filter: *Anchor_JP, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/JP.png}
   - {name: 日本自动,   <<: *Anchor_UT, filter: *Anchor_JP, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/JP.png}
   # 新加坡组
-  #- {name: 新加坡手动,   <<: *Anchor_HS, filter: *Anchor_SG, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/SG.png}
+  - {name: 新加坡手动,   <<: *Anchor_HS, filter: *Anchor_SG, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/SG.png}
   - {name: 新加坡自动,   <<: *Anchor_UT, filter: *Anchor_SG, icon: https://raw.githubusercontent.com/erdongchanyo/icon/main/Policy-Country/SG.png}
 
 # ███████████████████████████ 规则匹配 ███████████████████████████
