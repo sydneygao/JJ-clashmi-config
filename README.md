@@ -4,9 +4,9 @@ iOS Clash Mi app 的配置文件。
 
 **Original link:**
 ```text
-https://raw.githubusercontent.com/sydneygao/JJ-clashmi-config/main/JJ-clashmi-config.yaml
+https://raw.githubusercontent.com/sydneygao/JJ-clashmi-config/main/JJ-config.yaml
 ```
 **China acceleration 🚀:**
 ```text
-https://cdn.jsdelivr.net/gh/sydneygao/JJ-clashmi-config@main/JJ-clashmi-config.yaml
+https://cdn.jsdelivr.net/gh/sydneygao/JJ-clashmi-config@main/JJ-config.yaml
 ```
