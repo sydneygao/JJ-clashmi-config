@@ -230,7 +230,7 @@ rules:
   - GEOIP,private,DIRECT,no-resolve
 
 
-  # ══ 2. 个性化规则 ══
+  # ══ 2. 自定义前置规则 ══
 
   - DOMAIN-SUFFIX,unpkg.com,DIRECT
 
