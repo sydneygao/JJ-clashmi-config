@@ -1,6 +1,6 @@
 # 名称：JJ-clashmi-config.yaml
-# 版本：2026.09.10
-# 日期：2026.09.10
+# 版本：2026.09.14
+# 日期：2026.09.14
 # 说明：ClashMi 配置；机场订阅 + 区域筛选 + MRS Rule Providers
 
 
@@ -260,12 +260,7 @@ rules:
   - DOMAIN-SUFFIX,searchgpt.com,Ai
   - DOMAIN,cdn.openaimerge.com,Ai
   - DOMAIN-SUFFIX,gemini.googleusercontent.com,Ai
-  - DOMAIN,webchannel-robinfrontend-pa.googleapis.com,Ai
-  - DOMAIN-SUFFIX,claudeusercontent.com,Ai
-  - DOMAIN,copilot.cloud.microsoft,Ai
-  - DOMAIN-SUFFIX,copilot.microsoft.com,Ai
   - DOMAIN,copilotstudio.microsoft.com,Ai
-  - DOMAIN,m365.cloud.microsoft,Ai
 
 
   # ══ 5. Apple ══
@@ -316,9 +311,7 @@ rules:
 
   - RULE-SET,games_domain,Games
 
-  - DOMAIN-SUFFIX,2ksports.com,Games
 
-  - DOMAIN-SUFFIX,marketingcloudapis.com,Games
 
 
   # ══ 12. GitHub ══
@@ -329,6 +322,7 @@ rules:
   # ══ 13. Microsoft ══
 
   - RULE-SET,microsoft_domain,Microsoft
+  - DOMAIN,m365.cloud.microsoft,Microsoft
 
 
   # ══ 14. Shield ══
@@ -358,7 +352,6 @@ rules:
   - IP-ASN,399358,Ai,no-resolve
 
   # Social / Meta / WhatsApp / Snapchat
-  - IP-ASN,11917,Social,no-resolve
   - IP-ASN,395291,Social,no-resolve
   - IP-ASN,32934,Social,no-resolve
 
@@ -368,8 +361,6 @@ rules:
   # PayPal
   - IP-ASN,1449,PayPal,no-resolve
   - IP-ASN,17012,PayPal,no-resolve
-  - IP-ASN,26444,PayPal,no-resolve
-  - IP-ASN,395313,PayPal,no-resolve
 
   # Games / 2K / Take-Two / Valve / Sony / Nintendo / Roblox
   - IP-ASN,395856,Games,no-resolve
@@ -384,12 +375,6 @@ rules:
   - IP-ASN,22697,Games,no-resolve
   - IP-ASN,11281,Games,no-resolve
 
-  # Telegram
-  - IP-ASN,44907,Social,no-resolve
-  - IP-ASN,59930,Social,no-resolve
-  - IP-ASN,62014,Social,no-resolve
-  - IP-ASN,62041,Social,no-resolve
-  - IP-ASN,211157,Social,no-resolve
 
 
   # ══ 17. 中国IP ══
