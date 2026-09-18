@@ -1,6 +1,6 @@
 # 名称：JJ-clashmi-config.yaml
-# 官方手册：https://clashmi.md
-# 日期：2026.09.14
+# 官方手册：https://clashmi.app
+# 日期：2026.09.18
 # 说明：ClashMi 配置；机场订阅 + 区域筛选 + MRS Rule Providers
 
 
@@ -19,16 +19,11 @@ proxy-providers:
 
 # ███████████████████████████ 锚点区域 ███████████████████████████
 
-# ══ 订阅锚点 ══
-Anchor_PR: &Anchor_PR {type: http, interval: 86400, proxy: DIRECT, health-check: {enable: true, url: 'https://www.gstatic.com/generate_204', interval: 300}, filter: "^(?!.*(到期|过期|剩余|网址|官网|邮箱|订阅|套餐|流量|说明|重置)).*$"}
-
 # ══ 出站锚点 ══
 Anchor_OB: &Anchor_OB {type: select, proxies: [默认代理, 香港自动, 台湾自动, 日本自动, 新加坡自动, 美国自动, 手动选择, DIRECT, REJECT]}
 
 # ══ 策略锚点 ══
 Anchor_HS: &Anchor_HS {type: select, include-all-proxies: true, include-all-providers: true}
-
-Anchor_FB: &Anchor_FB {type: fallback, url: 'https://www.gstatic.com/generate_204', interval: 300, lazy: true, timeout: 2000, max-failed-times: 3, hidden: true}
 
 Anchor_UT: &Anchor_UT {type: url-test, url: 'https://www.gstatic.com/generate_204', interval: 600, lazy: true, tolerance: 50, timeout: 2000, max-failed-times: 3, hidden: true, include-all-proxies: true, include-all-providers: true}
 
