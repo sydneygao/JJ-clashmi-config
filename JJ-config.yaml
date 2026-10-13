@@ -236,6 +236,8 @@ rules:
 
   - DOMAIN-SUFFIX,jsdelivr.net,DIRECT
 
+  - DOMAIN-SUFFIX,jsdelivr.com,DIRECT
+
   - DOMAIN-SUFFIX,xhscdn.com,DIRECT
 
   - DOMAIN-SUFFIX,clashmi.app,默认代理
