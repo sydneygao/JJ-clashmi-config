@@ -248,6 +248,11 @@ rules:
 
   - DOMAIN-SUFFIX,jpush.cn,默认代理
 
+  # ══ 2. B站防PCDN规则 ══
+  - DOMAIN-SUFFIX,mcdn.bilivideo.cn,REJECT
+  - DOMAIN-SUFFIX,mcdn.bilivideo.com,REJECT
+  - DOMAIN-SUFFIX,szbdyd.com,REJECT
+  - DOMAIN-KEYWORD,pcdn.biliapi.net,REJECT 
 
   # ══ 3. 中国域名 ══
 
